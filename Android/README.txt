@@ -6,3 +6,4 @@ In first line in variable loggerUrl you must store the Url address of logger app
 
 - /assets/www/orders.js
 In first three lines you must write the Url's of Allegro, Shoper and Shopify PHP scripts (can be found in tools directory).
+You must also write the Shopify API key into variable shopifyApiKey.
