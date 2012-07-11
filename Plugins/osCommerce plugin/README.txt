@@ -1,0 +1,1 @@
+Instrukcja instalacji i konfiguracji pluginu znajduje siê na Wiki

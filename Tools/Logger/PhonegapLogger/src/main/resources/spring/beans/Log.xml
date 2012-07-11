@@ -1,0 +1,17 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- Stock business object -->
+   <bean id="logBo" class="pl.com.power.log.LogBo" >
+   		<property name="logDao" ref="logDao" />
+   </bean>
+ 
+   <!-- Stock Data Access Object -->
+   <bean id="logDao" class="pl.com.power.log.LogDao" >
+   		<property name="sessionFactory" ref="sessionFactory"></property>
+   </bean>
+   
+   		
+</beans>

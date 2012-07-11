@@ -1,0 +1,323 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<body>
+<style type="text/css">
+table
+{
+border-collapse:collapse;
+}
+table, td, th
+{
+border:1px solid black;
+}
+</style>
+<h1>E-Shopping installation guide</h1><br>
+<h2>Table of contents:</h2>
+<font size="4">
+<a href="#requirements">1. Minimum requirements</a><br>
+<a href="#plugins">2. Configuring plugins</a></font>
+<dd>
+	<a href="#oscommerce">2.1. osCommerce</a>
+	<br>
+	<a href="#magento">2.2. Magento</a>
+	<br>
+	<a href="#prestashop">2.3. PrestaShop</a>
+	<br>
+	<a href="#opencart">2.4. OpenCart</a>
+</dd>
+<br/>
+<font size="4">
+<a href="#api">3. Configuring API's</a>
+</font>
+<dd>
+<a href="#shopify">3.1. Shopify</a>
+</dd>
+<dd>
+<a href="#shoper">3.2. Shoper</a>
+</dd>
+<br>
+<hr>
+<h2><a name="requirements">Minimum requirements</a></h2>
+To run our application, you need a Android 2.1 or higher device. To function properly, internet access is required. <br>
+<h2><a name="plugins">Configuring plugins</a></h2>
+
+
+<h3><a name="oscommerce">osCommerce plugin:</a></h3>
+
+
+You probably have osCommerce up and running by now, you just need to make some changes:<br><br>
+<ol>
+<li>Unzip file <b>oscommerceplugin.zip</b></li>
+<li>Copy files: <br>
+<ul>
+<li><b>generate_order_list.php</b> >> /your_main_oscommerce_catalog/</li>
+<li><b>set_plugin_pin.php</b> >> /your_main_oscommerce_catalog/admin/ </li>
+<li><b>pin.ini</b> >> /your_main_oscommerce_catalog/admin/ </li>
+</ul>
+</li>
+<li>
+Edit files:
+<ul>
+<li><b>orders.php</b> >> /your_main_oscommerce_catalog/admin/ <br>
+<dd>
+Find section (bottom page): <br>
+
+
+<table border=1 bgcolor="#EEEEEE">
+<tr>
+<td>
+<pre>
+&lt;?php
+  require(DIR_WS_INCLUDES . &#039;template_bottom.php&#039;);
+  require(DIR_WS_INCLUDES . &#039;application_bottom.php&#039;);
+?&gt;
+</pre>
+</td>
+</tr>
+</table>
+<br>
+Insert above <i>require()</i>:<br>
+<table border=1 bgcolor="#EEEEEE">
+<tr>
+<td>
+<pre>
+echo &#039;&lt;form action=&quot;set_plugin_pin.php&quot; method=&quot;post&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;Set mobile PIN number&quot; /&gt;&#039;;
+</pre>
+</td>
+</tr>
+</table>
+
+<br>
+So section would look like:<br>
+<table border=1 bgcolor="#EEEEEE">
+<tr>
+<td>
+<pre>&lt;?php
+  echo &#039;&lt;form action=&quot;set_plugin_pin.php&quot; method=&quot;post&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;Set mobile PIN number&quot; /&gt;&#039;;
+  require(DIR_WS_INCLUDES . &#039;template_bottom.php&#039;);
+  require(DIR_WS_INCLUDES . &#039;application_bottom.php&#039;);
+?&gt;</pre>
+</td>
+</tr>
+</table>
+</li>
+<br>
+</dd>
+<li>
+<b>.htaccess</b> >> /your_main_oscommerce_catalog/admin/<br>
+<dd>
+Add:<br>
+<table border=1 bgcolor="#EEEEEE">
+<tr>
+<td>
+<pre>
+&lt;Files *.ini&gt;
+Order Deny,Allow
+Deny from all
+&lt;/Files&gt;
+</pre>
+</td>
+</tr>
+</table>
+<br>
+
+This will prevent remote access to any <i>.ini</i> files, so no one could see your PIN number.</dd>
+
+</li>
+</ul>
+<br>
+You may also copy modified files from archive, but first check if you have the same version of osCommerce. Editing files method works for all versions.
+</li>
+<li>
+Type your store address and PIN number in apropriate boxes in our mobile app
+</li>
+</ol>
+You can change your PIN number by clicking <b>Set mobile PIN number</b> button in your Admin Panel -> Customers Tab -> Orders.
+
+
+
+<h3><a name="magento">Magento plugin:</a></h3>
+
+
+
+
+To install our Magento plugin, you need to follow theese steps:<br><br>
+<ol>
+<li>Unzip file <b>magentoplugin.zip</b></li>
+<li>Copy files: <br>
+<ul>
+<li><b>generate_order_list.php</b> >> /your_main_magento_catalog/</li>
+<li><b>pin.ini</b> >> /your_main_magento_catalog/</li>
+</ul>
+</li>
+<li>
+Edit file:
+<ul>
+<li>
+<b>.htaccess</b> >> /your_main_magento_catalog/<br>
+<dd>
+Add:<br>
+<table border=1 bgcolor="#EEEEEE">
+<tr>
+<td>
+<pre>
+&lt;Files *.ini&gt;
+Order Deny,Allow
+Deny from all
+&lt;/Files&gt;
+</pre>
+</td>
+</tr>
+</table>
+<br>
+
+This will prevent remote access to any <i>.ini</i> files, so no one could see your PIN number.</dd>
+
+</li>
+</ul>
+</li>
+<li>
+Type your store address and PIN number in apropriate boxes in our mobile app
+</li>
+</ol>
+You can change your PIN number by editing <b>pin.ini</b> file.
+
+
+
+
+<h3><a name="prestashop">PrestaShop plugin:</a></h3>
+
+
+
+
+To install our PrestaShop plugin you need to do the following:
+<ol>
+<li>
+Unzip file <b>prestashopplugin.zip</b>
+</li>
+<li>
+Copy:
+<ul>
+<li>
+<b>mobileorders</b> >> /prestashop_main_dir/modules/
+</li>
+<li>
+<b>mo.php</b> >> /prestashop_main_dir/
+</li>
+</ul>
+</li>
+<li>
+Go to your store's administration panel:
+<ul>
+	<li>choose <b>Modules</b> tab</li>
+	<li>in the <b>Administration</b> section look for <i>Mobile orders</i> entry</li>
+	<li>click <b>Install</b> button on the right</li>
+	<li>After refreshing page click <b>Settings</b> link placed below module title and description</li>
+	<li>put your secret PIN number into visible text field and click <b>Save settings</b> button</li> 
+</ul>
+</li>
+<li>
+Type your store address and PIN number in apropriate boxes in our mobile app
+</li>
+</ol>
+
+
+
+<h3><a name="opencart">OpenCart plugin:</a></h3>
+
+
+
+
+To install our OpenCart plugin you just need to modify your shop a little:
+<ol>
+<li>
+Unzip file <b>opencartplugin.zip</b>
+</li>
+<li>
+Copy extracted files into opencart main directory and replace conflicted files. 
+</li>
+<li>
+Run admin/install.php on server.
+</li>
+<li>
+Enter admin panel->System->User->User Groups.
+<br/>Edit 'Top Administrator'<br/>Select 'tool/mobile_orders' in Access Permissions box and save changes.
+</li>
+<li>
+Congratulations. You've successfully set up mobile orders system. You can set pin code in admin panel by entering: 'System->Mobile Orders'
+</li>
+</ol>
+
+
+
+
+<h2><a name="api">Configuring API's</a></h2>
+<h3><a name="shopify">Shopify.com API:</a></h3>
+
+<script>
+function generateLink()
+{
+	var name=document.getElementById('shopname').value;
+	document.getElementById('link').innerHTML="<a onclick=\"openWindow()\" href=\"\">https://"+name+"/admin/api/auth?api_key=2c5a42d1702ea9cdbaab599298ffbb5e</a>";
+}
+function openWindow()
+{
+	var name=document.getElementById('shopname').value;
+	window.open("https://"+name+"/admin/api/auth?api_key=2c5a42d1702ea9cdbaab599298ffbb5e");
+}
+</script>
+Follow theese steps to configure your Shopify.com shop to use our mobile app:
+<ol>
+<li>
+Type your shop URL into textbox below and click <b>Generate link</b> button
+<dd>
+Shop URL (eg. "superstore.myshopify.com"): <input type="text" id="shopname">
+<button onclick="generateLink()">Generate link</button></dd>
+</li>
+<li>
+Click or copy into your browser's address bar generated link:<br>
+<div id="link">
+</div>
+</li>
+<li>
+Log in if required
+</li>
+<li>
+Click <b>Install</b>
+</li>
+<li>
+Save generated password and type it in <b>Key</b> box in our mobile app providing your shop URL in <b>Shop address</b> box (eg. "superstore.myshopify.com")
+</li>
+</ol>
+
+<h3><a name="shoper">Shoper.pl API:</a></h3>
+Follow theese steps to configure your Shoper.pl shop to use our mobile app:
+<ol>
+	<li>
+	Go to your store's administration site
+	<li>Click on <b>Konfiguracja</b> button</li>
+	<li>Choose <b>Administracja, system</b> from visible popup menu, then choose <b>Administratorzy</b></li>
+	<li>
+	Click on <b>dodaj grupę administratorów</b> link:</a>
+	<ul>
+		<li>Fill the form's fields as you wish. From <b>Tryb dostępu</b> list choose option: <i>dostęp do webapi</i></li>
+		<li>Click on <b>Zapisz</b> button, then go to the <b>Uprawnienia</b> tab (left side)</li>
+		<li>From the <b>Sprzedaż</b> list choose option: <i>odczyt</i> and click the <b>Zapisz i zamknij</b> button on the bottom of page</li>
+	</ul>
+	</li>
+	<li>
+	Click on <b>dodaj administratora</b> link:</a>
+	<ul>
+		<li>Fill the form's fields as you wish. From <b>Grupa</b> list choose option which name represents the group you added before.</i></li>
+		<li>Click the <b>Zapisz i zamknij</b> button on the bottom of page</li>
+	</ul>
+	</li>
+	<li>
+	Type your store address and created administrator login with password in apropriate boxes in our mobile app
+	</li>
+</ol>
+
+</body>
+</head>
+</html>

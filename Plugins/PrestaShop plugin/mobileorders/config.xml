@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>mobileorders</name>
+	<displayName><![CDATA[Mobile orders]]></displayName>
+	<version><![CDATA[0.2]]></version>
+	<description><![CDATA[Shares informations about new orders to your smartphone]]></description>
+	<author><![CDATA[Michal Kaczara]]></author>
+	<tab><![CDATA[administration]]></tab>
+	<is_configurable>1</is_configurable>
+	<need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

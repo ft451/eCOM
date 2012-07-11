@@ -1,0 +1,97 @@
+All data received by our app should be JSON arrays, following specification as presented below:
+
+"result" :
+[
+	{
+	"order_id"				:"number",
+	"customer_name" 		: "string",
+	"customer_st_address" 	: "string",
+	"customer_city"         : "string",
+	"customer_postcode" 	: "string",
+	"customer_country" 		: "string",
+	"customer_telephone" 	: "string",
+	"customer_email"        : "string",
+	"delivery_address" 		: "string",
+	"delivery_method" 		: "string",
+	"payment_method" 		: "string",
+	"currency"      		:"string",
+	"date_purchased" 		: "string",
+	"order_status"         	: "string",
+	"products"              :
+	[
+	   {
+	        "product_name" 		: "string",
+	        "product_price" 	: "number",
+	        "product_quantity"  : "number"
+	   }
+	
+	],
+	"final_price" 			: "number",
+	"additional_info"       : "string"
+	}
+]
+
+
+Example JSON data:
+
+"result": [
+        {
+            "order_id": "5",
+            "customer_name": "Firstname Lastname",
+            "customer_email": "firstname.lastname@gmail.com",
+            "customer_st_address": "Grabiszynska",
+            "customer_city": "Wroclaw",
+            "customer_postcode": "50-234",
+            "customer_country": "PL",
+            "customer_telephone": "123456432",
+            "delivery_address": "Firstname Lastname Grabiszynska 50-234 Wroclaw Dolnoslaskie",
+            "delivery_method": "Flat Rate - Fixed",
+            "payment_method": "checkmo",
+            "date_purchased": "2012-07-09 11:26:36",
+            "order_status": "pending",
+            "currency": "USD",
+            "products": [
+                {
+                    "product_name": "Ottoman",
+                    "product_price": "299.9900",
+                    "product_quantity": "1.0000"
+                }
+            ],
+            "final_price": "304.9900",
+            "additional_info": ""
+        },
+        {
+            "order_id": "6",
+            "customer_name": "Alex Roman",
+            "customer_email": "geocrafterpl@gmail.com",
+            "customer_st_address": "Grabiszynska",
+            "customer_city": "Wroclaw",
+            "customer_postcode": "50-234",
+            "customer_country": "PL",
+            "customer_telephone": "123456432",
+            "delivery_address": "Firstname Lastname Grabiszynska 50-234 Wroclaw Dolnoslaskie",
+            "delivery_method": "Flat Rate - Fixed",
+            "payment_method": "checkmo",
+            "date_purchased": "2012-07-09 11:35:43",
+            "order_status": "pending",
+            "currency": "USD",
+            "products": [
+                {
+                    "product_name": "Acer Ferrari 3200 Notebook Computer PC",
+                    "product_price": "2049.9900",
+                    "product_quantity": "5.0000"
+                }
+            ],
+            "final_price": "10274.9500",
+            "additional_info": ""
+        }
+    ]
+}
+
+
+In addition, data should be enclosed within jsoncallback parameter, i.e.:
+
+				_callback ( { "result" : ... } );
+
+where "_callback" is text string sent to plugin within GET request in parameter named "jsoncallback".
+In most cases you can obtain "jsoncallback" parameter by referencing "GET['jsoncallback']" in php.

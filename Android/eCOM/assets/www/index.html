@@ -1,0 +1,343 @@
+<!DOCTYPE HTML> 
+<html>   
+<head>   
+	<title>Phone Gap</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf8" />  
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<!-- JQUERY + STYLE -->
+	<script src="jquery.min.js"></script>
+	<script src="jquery.mobile-1.0.1.min.js"></script>
+	<link rel="stylesheet" href="jquery.mobile-1.0.1.min.css" />
+	<link rel="stylesheet" href="style.css" />
+	<!-- PHONEGAP -->	
+	<script type="text/javascript" charset="utf-8" src="phonegap-1.4.1.js"></script>
+	<!-- DATABASE -->	
+	<script type="text/javascript" charset="utf-8" src="db.js"></script> 
+	<!-- MD5 -->
+	<script type="text/javascript" charset="utf-8" src="md5.js"></script> 
+	<!-- ORDERS -->
+	<script type="text/javascript" charset="utf-8" src="orders.js"></script>
+	<!-- MAC ADDRESS -->
+	<script type="text/javascript" charset="utf-8" src="MacAddress.js"></script>
+	<!-- IMEI -->
+	<script type="text/javascript" charset="utf-8" src="imei.js"></script>
+	<!-- LOGGER -->
+	<script type="text/javascript" charset="utf-8" src="logger.js"></script>
+	
+	<script type="text/javascript" charset="utf-8">  
+	$(document).ready(function(){
+		document.addEventListener("deviceready", init, false);
+	});
+	</script>
+</head>
+
+<body>  
+<!-- MAIN -->	
+<div data-role="page" id="main">
+	<div data-role="header" data-position="fixed"><h1>E-shopping</h1><a href="" onclick="navigator.app.exitApp();" data-icon="delete">Exit</a></div>
+	<div data-role="content" id="mainDiv">
+		<ul id="mainContentList" data-role="listview" data-inset="true"></ul><!-- contentList -->
+	</div>
+	
+	<div data-role="footer" data-position="fixed">
+        <div data-role="navbar" data-iconpos="right">
+			<ul>
+				<li><a href="#main" data-icon="home" data-theme="b" data-content-theme="b">Main</a></li>
+				<li><a href="#settings" data-icon="gear">Configuration</a></li><!--new shop-->
+				<li><a href="#about" data-icon="info">About...</a></li><!--order-->
+			</ul>
+        </div><!-- navbar -->
+    </div><!-- /footer	-->
+</div> <!-- page -->
+
+
+<!-- ORDERS -->	
+
+<div data-role="page" id="order">   
+	<div data-role="header" data-position="fixed"><h1>E-shopping - orders</h1><a href="#main" data-icon="back" data-rel="back">Back</a></div>
+	<div data-role="content">    
+		<div data-role="content" id="orderDiv">
+			<ul id="orderContentList" data-role="listview" data-inset="true"></ul><!-- contentList2 -->
+		</div>
+	</div>
+	<div id="spinner" class="spinner" style="display:none;">
+		<img id="img-spinner" src="images/ajax-loader.gif" alt="Loading"/>
+	</div>	
+	<div class="ui-navbar ui-footer ui-bar-a ui-footer-fixed fade ui-fixed-overlay">
+			<ul class="ui-grid-solo">
+				<li class="ui-block-solo" id="refresh"></li><!--new shop-->
+			</ul>
+    </div>
+</div> <!-- page -->
+
+
+<!-- ORDER DETAILS -->	
+
+<div data-role="page" id="orderdetails">
+	<div data-role="header" data-position="fixed">
+		<h1>E-shopping - order details</h1>
+		<a href="#order" data-icon="back" data-rel="back">Back</a>
+	</div>
+	<div data-role="content">
+		<ul id="divCustomer" style="padding: 10px;" data-role="listview" data-inset="true"></ul>
+		<ul id="divDetail" style="padding: 10px;" data-role="listview" data-inset="true"></ul>
+		<ul id="orderDetailsContentList" style="padding: 10px;"	data-role="listview" data-inset="true"></ul>
+	</div>
+	<div data-role="content" id="divID">
+	</div>
+</div> <!-- page -->
+
+
+<!-- SETTINGS -->
+
+<div data-role="page" id="settings">
+	<div data-role="header"><h1>E-shopping - settings</h1><a href="#main" data-icon="back" data-rel="back">Back</a></div><!-- /header -->
+	 <!--<div data-role="fieldcontain">
+			<fieldset class="ui-grid-b">
+				<div data-role="controlgroup" data-type="horizontal" class="row_buttons">
+					<div class="ui-block-a"><a href="#settings" id="shop-name" data-role="button">Shop</a></div>
+					<div class="ui-block-b"><a href="#edit" id="shop-grid" data-role="button" data-icon="grid" data-iconpos="right">&nbsp;</a></div>
+					<div class="ui-block-c"><a href="#settings" id="shop-delete" data-role="button" data-icon="delete" data-iconpos="right">&nbsp;</a></div>
+				</div></fieldset></div>
+			<a href="#new" data-role="button" data-icon="star" data-iconpos="right">Nowy sklep</a>
+		</div> -->
+	 
+	<div data-role="content">
+		<fieldset class="ui-grid-b" id="divShopSettings"></fieldset>
+
+		<ul id="settingsContentList" data-role="listview" data-inset="true">
+			<li><a href="#newShop">
+				<table>
+					<tr>
+						<td><img src="images/new3.png" width=60 height=60></td>
+						<td><h2>New shop</h2><p>Click here to add new shop</p>
+					</tr>
+				</table>
+			</a></li>
+			
+			<li><a href="#main" onClick="drop();">
+				<table>
+					<tr>
+						<td><img src="images/usun2.png" width=60 height=60></td>
+						<td><h2>Delete all</h2><p>Click here to delete all settings</p>
+					</tr>
+				</table>
+			</a></li>
+		</ul>
+	</div>
+	
+	<div data-role="footer" data-position="fixed">
+        <div data-role="navbar" data-iconpos="right">
+			<ul>
+				<li><a href="#main" data-icon="home" data-direction="reverse">Main</a></li>
+				<li><a href="#settings" data-icon="gear" data-theme="b" data-content-theme="b">Configuration</a></li>
+				<li><a href="#about" data-icon="info">About...</a></li>
+			</ul>
+        </div><!-- navbar -->
+    </div><!-- /footer	-->
+</div><!-- /page -->
+
+
+
+<!-- NEW SHOP -->	
+
+<div data-role="page" id="newShop">   
+	<div data-role="header" data-position="fixed"><h1>E-shopping - add new shop</h1><a href="#settings" data-icon="back" data-rel="back">Back</a></div>
+	<div data-role="content">  
+		<div data-role="collapsible-set">
+		
+			<div data-role="collapsible" data-collapsed="true">
+			<h3>Allegro</h3>
+				<div data-role="fieldcontain">
+					<label for="Allegroaddress">Login:</label>
+					<input type="url" name="address" id="Allegroaddress" value="" placeholder="login" />		
+					<br />
+					<label for="Allegropin">Password:</label>
+					<input type="password" name="pin" id="Allegropin" value="" placeholder="password" />
+				</div>
+				
+				<fieldset class="ui-grid-a">
+					<div class="ui-block-a"><button type="submit" data-theme="a" ><a href="#main" data-role="button" onClick="addShop('Allegro');">Save</a></button></div>	   
+					<div class="ui-block-b"><button type="submit" data-theme="c"><a href="#settings" data-role="button">Cancel</a></button></div>
+				</fieldset>
+			</div>
+			
+			<div data-role="collapsible" data-collapsed="true">
+				<h3>Magento</h3>
+					<div data-role="fieldcontain">
+						<label for="Magentoaddress">Shop address:</label>
+						<input type="url" name="address" id="Magentoaddress" value="" placeholder="address" />		
+						<br />
+						<label for="Magentopin">Pin:</label>
+						<input type="password" name="pin" id="Magentopin" value="" placeholder="pin" />
+					</div>
+	
+					<fieldset class="ui-grid-a">
+						<div class="ui-block-a"><button type="submit" data-theme="a" ><a href="#main" data-role="button" onClick="addShop('Magento');">Save</a></button></div>	   
+						<div class="ui-block-b"><button type="submit" data-theme="c"><a href="#settings" data-role="button">Cancel</a></button></div>
+					</fieldset>
+				</div>
+			
+			<div data-role="collapsible" data-collapsed="true">
+			<h3>Open Cart</h3>
+				<div data-role="fieldcontain">
+					<label for="OpenCartaddress">Shop address:</label>
+					<input type="url" name="address" id="OpenCartaddress" value="" placeholder="address" />		
+					<br />
+					<label for="OpenCartpin">Pin:</label>
+					<input type="password" name="pin" id="OpenCartpin" value="" placeholder="pin" />
+				</div>
+
+				<fieldset class="ui-grid-a">
+					<div class="ui-block-a"><button type="submit" data-theme="a" ><a href="#main" data-role="button" onClick="addShop('OpenCart');">Save</a></button></div>	   
+					<div class="ui-block-b"><button type="submit" data-theme="c"><a href="#settings" data-role="button">Cancel</a></button></div>
+				</fieldset>
+			</div>
+			
+			<div data-role="collapsible" data-collapsed="true">
+			<h3>osCommerce</h3>
+				<div data-role="fieldcontain">
+					<label for="osCommerceaddress">Shop address:</label>
+					<input type="url" name="address" id="osCommerceaddress" value="" placeholder="address" />
+					<br />		
+					<label for="osCommercepin">Pin:</label>
+					<input type="password" name="pin" id="osCommercepin" value="" placeholder="pin" />
+				</div>
+					
+				<fieldset class="ui-grid-a">
+					<div class="ui-block-a"><button type="submit" data-theme="a" ><a href="#main" data-role="button" onClick="addShop('osCommerce');">Save</a></button></div>	   
+					<div class="ui-block-b"><button type="submit" data-theme="c"><a href="#settings" data-role="button">Cancel</a></button></div>
+				</fieldset>
+			</div>	
+			
+			<div data-role="collapsible" data-collapsed="true">
+			<h3>Presta Shop</h3>
+				<div data-role="fieldcontain">
+					<label for="PrestaShopaddress">Shop address:</label>
+					<input type="url" name="address" id="PrestaShopaddress" value="" placeholder="address" />		
+					<br />
+					<label for="PrestaShoppin">Pin:</label>
+					<input type="password" name="pin" id="PrestaShoppin" value="" placeholder="pin" />
+				</div>
+
+				<fieldset class="ui-grid-a">
+					<div class="ui-block-a"><button type="submit" data-theme="a" ><a href="#main" data-role="button" onClick="addShop('PrestaShop');">Save</a></button></div>	   
+					<div class="ui-block-b"><button type="submit" data-theme="c"><a href="#settings" data-role="button">Cancel</a></button></div>
+				</fieldset>
+			</div>
+			
+			<div data-role="collapsible" data-collapsed="true">
+				<h3>Shoper</h3>
+					<div data-role="fieldcontain">
+						<label for="Shoperaddress">Shop address:</label>
+						<input type="text" name="address" id="Shoperaddress" value="" placeholder="address" />		
+						<br />
+						<label for="Shoperlogin">Login:</label>
+						<input type="text" name="login" id="Shoperlogin" value="" placeholder="login" />
+						<br />
+						<label for="Shoperpass">Password:</label>
+						<input type="password" name="pass" id="Shoperpass" value="" placeholder="pass" />
+					</div>
+	
+					<fieldset class="ui-grid-a">
+						<div class="ui-block-a"><button type="submit" data-theme="a" ><a href="#main" data-role="button" onClick="addShop('Shoper');">Save</a></button></div>	   
+						<div class="ui-block-b"><button type="submit" data-theme="c"><a href="#settings" data-role="button">Cancel</a></button></div>
+					</fieldset>
+			</div>
+			
+			<div data-role="collapsible" data-collapsed="true">
+				<h3>Shopify</h3>
+					<div data-role="fieldcontain">
+						<label for="Shopifyaddress">Shop name:</label>
+						<input type="text" name="address" id="Shopifyaddress" value="" placeholder="address" />		
+						<br />
+						<label for="Shopifypin">Key:</label>
+						<input type="text" name="pin" id="Shopifypin" value="" placeholder="pin" />
+						<br/>
+						Enter shop name and click <a href="" onclick="generateShopifyLink()">here</a> to get your Key.
+						<div id="Shopifyregisterlink">
+						</div>
+					</div>
+	
+					<fieldset class="ui-grid-a">
+						<div class="ui-block-a"><button type="submit" data-theme="a" ><a href="#main" data-role="button" onClick="addShop('Shopify');">Save</a></button></div>	   
+						<div class="ui-block-b"><button type="submit" data-theme="c"><a href="#settings" data-role="button">Cancel</a></button></div>
+					</fieldset>
+			</div>
+		</div>
+	</div>
+	<div data-role="footer" data-position="fixed">
+        <div data-role="navbar" data-iconpos="right">
+			<ul>
+				<li><a href="#main" data-icon="home">Main</a></li>
+				<li><a href="#settings" data-icon="gear">Configuration</a></li><!--new shop-->
+				<li><a href="#about" data-icon="info">About...</a></li><!--order-->
+			</ul>
+        </div><!-- navbar -->
+    </div><!-- /footer	-->
+</div> <!-- page -->
+
+
+<!-- EDIT -->	
+
+<div data-role="page" id="edit">
+	<div data-role="header"><h1>E-shopping - edit shop</h1><a href="#settings" data-icon="back" data-rel="back">Back</a></div> <!-- /header-->
+	<div data-role="content">  
+		<div data-role="collapsible-set" id="divEditShop">
+			<!-- <div data-role="collapsible" data-collapsed="false" ></div> -->
+		</div>
+	</div>
+	
+	<div data-role="footer" data-position="fixed">
+        <div data-role="navbar" data-iconpos="right">
+			<ul>
+				<li><a href="#main" data-icon="home">Main</a></li>
+				<li><a href="#settings" data-icon="gear">Configuration</a></li>
+				<li><a href="#about" data-icon="info">About...</a></li>
+			</ul>
+        </div><!-- navbar -->
+    </div><!-- /footer	-->
+</div> <!-- /page -->
+
+
+
+<!-- ABOUT -->	
+
+<div data-role="page" id="about">
+	<div data-role="header"><h1>E-shopping - about...</h1><a href="#main" data-icon="back" data-rel="back">Back</a></div> <!-- /header-->
+	
+	<div data-role="content">
+	<p>
+			Created by:</p>
+	<p>
+			(alphabetically by last name)</p>			
+		<ul>
+			<li>
+				Jarosław Ankowski</li>
+			<li>
+				Mateusz Furman</li>
+			<li>
+				Michał Kaczara</li>
+			<li>
+				Mateusz Ligęza</li>
+			<li>
+				Stanisław Siarkiewicz</li>
+			<li>
+				Grzegorz Żyszkiewicz</li>
+		</ul>
+		<p>
+			under supervision of <strong>Power Media S.A.</strong></p>
+	</div><!-- content -->
+	
+	<div data-role="footer" data-position="fixed">
+        <div data-role="navbar" data-iconpos="right">
+			<ul>
+				<li><a href="#main" data-icon="home" data-direction="reverse">Main</a></li>
+				<li><a href="#settings" data-icon="gear" data-direction="reverse">Configuration</a></li>
+				<li><a href="#about" data-icon="info" data-theme="b" data-content-theme="b">About...</a></li>
+			</ul>
+        </div><!-- navbar -->
+    </div><!-- /footer	-->
+</div> <!-- /page -->
+</body>
+</html>

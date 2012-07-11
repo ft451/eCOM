@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="pl.com.power.log.Log" table="log" catalog="logger">
+        <id name="id" type="java.lang.Long">
+            <column name="id" not-null="true" unique="true"/>
+            <generator class="identity" />
+        </id>
+        <property name="data" type="timestamp">
+            <column name="data" not-null="true" />
+        </property>
+        <property name="operacja" type="string">
+            <column name="operacja" length="20" />
+        </property>
+        <property name="uuid" type="string">
+            <column name="uuid" length="45" />
+        </property>
+        <property name="ip" type="string">
+            <column name="ip" length="50" />
+        </property>
+        <property name="url" type="string">
+            <column name="url" length="120" />
+        </property>
+        <property name="imei" type="string">
+            <column name="imei" length="15" />
+        </property>
+        <property name="mac" type="string">
+            <column name="mac" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>
