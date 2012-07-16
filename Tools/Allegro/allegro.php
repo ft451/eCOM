@@ -55,6 +55,12 @@ class WebAPISoapClient extends SoapClient
 		$count = $client->doMyAccountItemsCount($session['session-handle-part'], $config['account_type'], array());
 		
 		$auctions = $client->doMyAccount2($session['session-handle-part'], 'sold', 0, array() );
+
+		if(count($auctions) == 0) {
+			header('Access-Control-Allow-Origin: *');
+			echo json_encode($auctions);
+			exit();
+		}
 		
 		foreach($auctions as $auction)
 		{
