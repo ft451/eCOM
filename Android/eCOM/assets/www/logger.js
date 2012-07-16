@@ -1,27 +1,28 @@
 var loggerUrl = "";//place your logger application URL here
 
-function getPhoneInfo(url, operacja) {
+function logInfo(url, operacja) {
 	// MAC Address
 	var networkInterface = {};
 	networkInterface = window.plugins.macaddress.getMacAddress();
 	var mac = networkInterface.mac;
 	
 	// IMEI
-	var imei;
-	window.plugins.imei.get(function(myImei) {
-		imei = myImei;
+	window.plugins.imei.get(function(imei) {
+		var result = "operacja=" + escape(operacja)
+		+ "&uuid=" + escape(device.uuid)
+		+ "&url=" + escape(url)
+		+ "&imei=" + escape(imei)
+		+ "&mac=" + escape(mac);
+		$.get(loggerUrl + "?" + result);
     }, function() {
         console.log("fail");
+        var result = "operacja=" + escape(operacja)
+		+ "&uuid=" + escape(device.uuid)
+		+ "&url=" + escape(url)
+		+ "&imei="
+		+ "&mac=" + escape(mac);
+		$.get(loggerUrl + "?" + result);
     });
     
-	var result = "operacja=" + escape(operacja)
-	+ "&uuid=" + escape(device.uuid)
-	+ "&url=" + escape(url)
-	+ "&imei=" + escape(imei)
-	+ "&mac=" + escape(mac);
 	
-	return result;
-}
-function logInfo(url, operacja) {
-	$.get(loggerUrl + "?" + getPhoneInfo(url, operacja));
 }
