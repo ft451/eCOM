@@ -1,7 +1,7 @@
 <!DOCTYPE HTML> 
 <html>   
 <head>   
-	<title>Phone Gap</title>
+	<title>eCOM  - Mobile eCommerce Order Manager</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8" />  
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<!-- JQUERY + STYLE -->
@@ -9,6 +9,7 @@
 	<script src="jquery.mobile-1.0.1.min.js"></script>
 	<link rel="stylesheet" href="jquery.mobile-1.0.1.min.css" />
 	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="android_version/styles.css" />
 	<!-- PHONEGAP -->	
 	<script type="text/javascript" charset="utf-8" src="phonegap-1.4.1.js"></script>
 	<!-- DATABASE -->	
@@ -34,8 +35,16 @@
 <body>  
 <!-- MAIN -->	
 <div data-role="page" id="main">
-	<div data-role="header" data-position="fixed"><h1>E-shopping</h1><a href="" onclick="navigator.app.exitApp();" data-icon="delete">Exit</a></div>
+	<div data-role="header" data-position="fixed"><h1>eCOM - Mobile Order Manager</h1><a href="" onclick="navigator.app.exitApp();" data-icon="delete">Exit</a></div>
 	<div data-role="content" id="mainDiv">
+	<center>
+
+	<img src="images/shopping_cart.png" style="width:64px; height:64px;">
+	
+	<h3>	eCOM - eCommerce Order Manager</h3>
+	
+	<hr/>
+	</center>
 		<ul id="mainContentList" data-role="listview" data-inset="true"></ul><!-- contentList -->
 	</div>
 	
@@ -44,7 +53,7 @@
 			<ul>
 				<li><a href="#main" data-icon="home" data-theme="b" data-content-theme="b">Main</a></li>
 				<li><a href="#settings" data-icon="gear">Configuration</a></li><!--new shop-->
-				<li><a href="#about" data-icon="info">About...</a></li><!--order-->
+				<li><a href="#about" data-icon="info">About</a></li><!--order-->
 			</ul>
         </div><!-- navbar -->
     </div><!-- /footer	-->
@@ -54,8 +63,9 @@
 <!-- ORDERS -->	
 
 <div data-role="page" id="order">   
-	<div data-role="header" data-position="fixed"><h1>E-shopping - orders</h1><a href="#main" data-icon="back" data-rel="back">Back</a></div>
-	<div data-role="content">    
+	<div data-role="header" data-position="fixed"><h1>eCOM- orders</h1><a href="#main" data-icon="back" data-rel="back">Back</a></div>
+	<div data-role="content">  
+  
 		<div data-role="content" id="orderDiv">
 			<ul id="orderContentList" data-role="listview" data-inset="true"></ul><!-- contentList2 -->
 		</div>
@@ -91,7 +101,7 @@
 <!-- SETTINGS -->
 
 <div data-role="page" id="settings">
-	<div data-role="header"><h1>E-shopping - settings</h1><a href="#main" data-icon="back" data-rel="back">Back</a></div><!-- /header -->
+	<div data-role="header"><h1>eCOM - settings</h1><a href="#main" data-icon="back" data-rel="back">Back</a></div><!-- /header -->
 	 <!--<div data-role="fieldcontain">
 			<fieldset class="ui-grid-b">
 				<div data-role="controlgroup" data-type="horizontal" class="row_buttons">
@@ -103,13 +113,18 @@
 		</div> -->
 	 
 	<div data-role="content">
+		<center>
+	<img src="images/settings.png" style="width:64px; height:64px;">
+	<h3>eCOM Settings</h3>
+	<hr/>
+	</center> 
 		<fieldset class="ui-grid-b" id="divShopSettings"></fieldset>
 
 		<ul id="settingsContentList" data-role="listview" data-inset="true">
 			<li><a href="#newShop">
 				<table>
 					<tr>
-						<td><img src="images/new3.png" width=60 height=60></td>
+						<td><img src="images/add.png" width=60 height=60></td>
 						<td><h2>New shop</h2><p>Click here to add new shop</p>
 					</tr>
 				</table>
@@ -118,7 +133,7 @@
 			<li><a href="#main" onClick="drop();">
 				<table>
 					<tr>
-						<td><img src="images/usun2.png" width=60 height=60></td>
+						<td><img src="images/delete.png" width=60 height=60></td>
 						<td><h2>Delete all</h2><p>Click here to delete all settings</p>
 					</tr>
 				</table>
@@ -142,13 +157,22 @@
 <!-- NEW SHOP -->	
 
 <div data-role="page" id="newShop">   
-	<div data-role="header" data-position="fixed"><h1>E-shopping - add new shop</h1><a href="#settings" data-icon="back" data-rel="back">Back</a></div>
-	<div data-role="content">  
+	<div data-role="header" data-position="fixed"><h1>eCOM - add new shop</h1><a href="#settings" data-icon="back" data-rel="back">Back</a></div>
+	<div data-role="content"> 
+	<center>
+	<img src="images/settings.png" style="width:64px; height:64px;">
+	<h3>eCOM Settings</h3>
+	<hr/>
+	</center> 
 		<div data-role="collapsible-set">
 		
 			<div data-role="collapsible" data-collapsed="true">
 			<h3>Allegro</h3>
 				<div data-role="fieldcontain">
+					
+					Zgodnie z regulaminem Allegro z tej funkcji mogą korzystać tylko twórcy aplikacji.<br> Dołącz do nich na: <a href="http://github.com/ft451" target="_blanc">GitHub</a></br>
+					
+					<p> </p>
 					<label for="Allegroaddress">Login:</label>
 					<input type="url" name="address" id="Allegroaddress" value="" placeholder="login" />		
 					<br />
@@ -165,6 +189,10 @@
 			<div data-role="collapsible" data-collapsed="true">
 				<h3>Magento</h3>
 					<div data-role="fieldcontain">
+					Set shop address as: http://my-shop-domain.com/ <br/>
+					For more info and shop plugin visit <a href="http://ecom.ft451.com" target="_blanc">eCom site</a></br>
+					
+					<p> </p>
 						<label for="Magentoaddress">Shop address:</label>
 						<input type="url" name="address" id="Magentoaddress" value="" placeholder="address" />		
 						<br />
@@ -181,6 +209,10 @@
 			<div data-role="collapsible" data-collapsed="true">
 			<h3>Open Cart</h3>
 				<div data-role="fieldcontain">
+					Set shop address as: http://my-shop-domain.com/ <br/>
+					For more info and shop plugin visit <a href="http://ecom.ft451.com" target="_blanc">eCom site</a></br>
+					
+					<p> </p>
 					<label for="OpenCartaddress">Shop address:</label>
 					<input type="url" name="address" id="OpenCartaddress" value="" placeholder="address" />		
 					<br />
@@ -196,6 +228,10 @@
 			
 			<div data-role="collapsible" data-collapsed="true">
 			<h3>osCommerce</h3>
+				Set shop address as: http://my-shop-domain.com/ <br/>
+					For more info and shop plugin visit <a href="http://ecom.ft451.com" target="_blanc">eCom site</a></br>
+					
+					<p> </p>
 				<div data-role="fieldcontain">
 					<label for="osCommerceaddress">Shop address:</label>
 					<input type="url" name="address" id="osCommerceaddress" value="" placeholder="address" />
@@ -212,6 +248,10 @@
 			
 			<div data-role="collapsible" data-collapsed="true">
 			<h3>Presta Shop</h3>
+				Set shop address as: http://my-shop-domain.com/<br/>
+					For more info and shop plugin visit <a href="http://ecom.ft451.com" target="_blanc">eCom site</a></br>
+					
+					<p> </p>
 				<div data-role="fieldcontain">
 					<label for="PrestaShopaddress">Shop address:</label>
 					<input type="url" name="address" id="PrestaShopaddress" value="" placeholder="address" />		
@@ -228,6 +268,10 @@
 			
 			<div data-role="collapsible" data-collapsed="true">
 				<h3>Shoper</h3>
+				
+					For more info and shop plugin visit <a href="http://ecom.ft451.com" target="_blanc">eCom site</a></br>
+					
+					<p> </p>
 					<div data-role="fieldcontain">
 						<label for="Shoperaddress">Shop address:</label>
 						<input type="text" name="address" id="Shoperaddress" value="" placeholder="address" />		
@@ -248,6 +292,10 @@
 			<div data-role="collapsible" data-collapsed="true">
 				<h3>Shopify</h3>
 					<div data-role="fieldcontain">
+					
+					For more info and shop plugin visit <a href="http://ecom.ft451.com" target="_blanc">eCom site</a></br>
+					
+					<p> </p>
 						<label for="Shopifyaddress">Shop name:</label>
 						<input type="text" name="address" id="Shopifyaddress" value="" placeholder="address" />		
 						<br />
@@ -271,7 +319,7 @@
 			<ul>
 				<li><a href="#main" data-icon="home">Main</a></li>
 				<li><a href="#settings" data-icon="gear">Configuration</a></li><!--new shop-->
-				<li><a href="#about" data-icon="info">About...</a></li><!--order-->
+				<li><a href="#about" data-icon="info">About</a></li><!--order-->
 			</ul>
         </div><!-- navbar -->
     </div><!-- /footer	-->
@@ -281,7 +329,7 @@
 <!-- EDIT -->	
 
 <div data-role="page" id="edit">
-	<div data-role="header"><h1>E-shopping - edit shop</h1><a href="#settings" data-icon="back" data-rel="back">Back</a></div> <!-- /header-->
+	<div data-role="header"><h1>eCOM - edit shop</h1><a href="#settings" data-icon="back" data-rel="back">Back</a></div> <!-- /header-->
 	<div data-role="content">  
 		<div data-role="collapsible-set" id="divEditShop">
 			<!-- <div data-role="collapsible" data-collapsed="false" ></div> -->
@@ -293,7 +341,7 @@
 			<ul>
 				<li><a href="#main" data-icon="home">Main</a></li>
 				<li><a href="#settings" data-icon="gear">Configuration</a></li>
-				<li><a href="#about" data-icon="info">About...</a></li>
+				<li><a href="#about" data-icon="info">About</a></li>
 			</ul>
         </div><!-- navbar -->
     </div><!-- /footer	-->
@@ -304,7 +352,7 @@
 <!-- ABOUT -->	
 
 <div data-role="page" id="about">
-	<div data-role="header"><h1>E-shopping - about...</h1><a href="#main" data-icon="back" data-rel="back">Back</a></div> <!-- /header-->
+	<div data-role="header"><h1>eCOM - about</h1><a href="#main" data-icon="back" data-rel="back">Back</a></div> <!-- /header-->
 	
 	<div data-role="content">
 	<p>
@@ -326,7 +374,7 @@
 				Grzegorz Żyszkiewicz</li>
 		</ul>
 		<p>
-			under supervision of <strong>Power Media S.A.</strong></p>
+			
 	</div><!-- content -->
 	
 	<div data-role="footer" data-position="fixed">
@@ -334,7 +382,7 @@
 			<ul>
 				<li><a href="#main" data-icon="home" data-direction="reverse">Main</a></li>
 				<li><a href="#settings" data-icon="gear" data-direction="reverse">Configuration</a></li>
-				<li><a href="#about" data-icon="info" data-theme="b" data-content-theme="b">About...</a></li>
+				<li><a href="#about" data-icon="info" data-theme="b" data-content-theme="b">About</a></li>
 			</ul>
         </div><!-- navbar -->
     </div><!-- /footer	-->

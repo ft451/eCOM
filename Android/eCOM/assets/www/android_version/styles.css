@@ -1,0 +1,18 @@
+/* === PAGE BACKGROUND AND GENERICS Android=== */
+.ui-page, .ui-mobile-viewport {
+	background: url(images/back_light.png);
+}
+
+.ui-content {
+	color: #4c596e;
+}
+
+.ui-page-header-fullscreen .ui-content, .ui-page-footer-fullscreen .ui-content{
+    padding-top: 39px;/* fix for fixed toolbar mode */
+}
+
+a
+{
+text-decoration:none;
+}
+
