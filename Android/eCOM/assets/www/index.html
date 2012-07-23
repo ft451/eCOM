@@ -35,7 +35,10 @@
 <body>  
 <!-- MAIN -->	
 <div data-role="page" id="main">
-	<div data-role="header" data-position="fixed"><h1>eCOM - Mobile Order Manager</h1><a href="" onclick="navigator.app.exitApp();" data-icon="delete">Exit</a></div>
+	<div data-role="header" data-position="fixed">
+	<h1>eCOM - Mobile Order Manager</h1><a href="" onclick="navigator.app.exitApp();" data-icon="delete">Exit</a>
+	<a href="#help"  data-theme="e">Help</a>
+	</div>
 	<div data-role="content" id="mainDiv">
 	<center>
 
@@ -63,7 +66,9 @@
 <!-- ORDERS -->	
 
 <div data-role="page" id="order">   
-	<div data-role="header" data-position="fixed"><h1>eCOM- orders</h1><a href="#main" data-icon="back" data-rel="back">Back</a></div>
+	<div data-role="header" data-position="fixed"><h1>eCOM- orders</h1><a href="#main" data-icon="back" data-rel="back">Back</a>
+	<a href="#help"  data-theme="e">Help</a>
+	</div>
 	<div data-role="content">  
   
 		<div data-role="content" id="orderDiv">
@@ -87,6 +92,7 @@
 	<div data-role="header" data-position="fixed">
 		<h1>E-shopping - order details</h1>
 		<a href="#order" data-icon="back" data-rel="back">Back</a>
+		<a href="#help"  data-theme="e">Help</a>
 	</div>
 	<div data-role="content">
 		<ul id="divCustomer" style="padding: 10px;" data-role="listview" data-inset="true"></ul>
@@ -101,7 +107,9 @@
 <!-- SETTINGS -->
 
 <div data-role="page" id="settings">
-	<div data-role="header"><h1>eCOM - settings</h1><a href="#main" data-icon="back" data-rel="back">Back</a></div><!-- /header -->
+	<div data-role="header"><h1>eCOM - settings</h1><a href="#main" data-icon="back" data-rel="back">Back</a>
+	<a href="#help"  data-theme="e">Help</a>
+	</div><!-- /header -->
 	 <!--<div data-role="fieldcontain">
 			<fieldset class="ui-grid-b">
 				<div data-role="controlgroup" data-type="horizontal" class="row_buttons">
@@ -157,7 +165,9 @@
 <!-- NEW SHOP -->	
 
 <div data-role="page" id="newShop">   
-	<div data-role="header" data-position="fixed"><h1>eCOM - add new shop</h1><a href="#settings" data-icon="back" data-rel="back">Back</a></div>
+	<div data-role="header" data-position="fixed"><h1>eCOM - add new shop</h1><a href="#settings" data-icon="back" data-rel="back">Back</a>
+	<a href="#help"  data-theme="e">Help</a>
+	</div>
 	<div data-role="content"> 
 	<center>
 	<img src="images/settings.png" style="width:64px; height:64px;">
@@ -329,7 +339,9 @@
 <!-- EDIT -->	
 
 <div data-role="page" id="edit">
-	<div data-role="header"><h1>eCOM - edit shop</h1><a href="#settings" data-icon="back" data-rel="back">Back</a></div> <!-- /header-->
+	<div data-role="header"><h1>eCOM - edit shop</h1><a href="#settings" data-icon="back" data-rel="back">Back</a>
+	<a href="#help"  data-theme="e">Help</a>
+	</div> <!-- /header-->
 	<div data-role="content">  
 		<div data-role="collapsible-set" id="divEditShop">
 			<!-- <div data-role="collapsible" data-collapsed="false" ></div> -->
@@ -352,7 +364,9 @@
 <!-- ABOUT -->	
 
 <div data-role="page" id="about">
-	<div data-role="header"><h1>eCOM - about</h1><a href="#main" data-icon="back" data-rel="back">Back</a></div> <!-- /header-->
+	<div data-role="header"><h1>eCOM - about</h1><a href="#main" data-icon="back" data-rel="back">Back</a>
+	<a href="#help"  data-theme="e">Help</a>
+	</div> <!-- /header-->
 	
 	<div data-role="content">
 	<p>
@@ -386,6 +400,130 @@
 			</ul>
         </div><!-- navbar -->
     </div><!-- /footer	-->
+    </div>
+   
+<!-- HELP -->   
+   
+   <div data-role="page" id="help">
+	<div data-role="header"><h1>eCOM - help</h1><a href="#main" data-icon="back" data-rel="back">Back</a></div> <!-- /header-->
+	
+	<div data-role="content">
+		<center>
+	<img src="images/question_mark.png" style="width:64px; height:64px;">
+	<h3>eCOM Help</h3>
+	<hr/>
+	</center>
+<H3>First step</h3>	
+First download & install shop pulgin. <a href="http://github.com/ft451" target="_blanc">Plugins site.</a><br/>
+To run a eCOM application on your mobile device, you must configure your shop in eCOM app<br>
+Set shop address always as:<br/> <b>http://my-shop-domain.com/</b><br/>
+With "http://" and without path to admin "/admin"<br/>
+For more info and support visit <a href="http://ecom.ft451.com" target="_blanc">eCom site</a></br>
+
+	
+<h3>Minimum requirements</h3>
+To run our application, you need a Android 2.1 or higher device. To function properly, internet access is required.
+
+<h3>Configuring OpenCart</h3>
+To install our OpenCart plugin you just need to modify your shop a little: Unzip file opencartplugin.zip<br/>
+
+Copy extracted files into opencart main directory and replace conflicted files.<br/>
+Run admin/install.php on server.<br/>
+Enter admin panel->System->User->User Groups. <br/>
+Edit 'Top Administrator'<br/>
+Select 'tool/mobile_orders' in Access Permissions box and save changes.<br/>
+Congratulations. You've successfully set up mobile orders system. You can set pin code in admin panel by entering: 'System->Mobile Orders'<br/>
+	
+	
+
+<h3>Configuring Presta Shop</h3>
+To install our PrestaShop plugin you need to do the following:<br/>
+
+Unzip file prestashopplugin.zip<br/>
+Copy: mobileorders >> /prestashop_main_dir/modules/ <br/>
+> /prestashop_main_dir/<br/>
+Go to your store's administration panel:<br/>
+choose Modules tab<br/>
+in the Administration section look for Mobile orders entry<br/>
+click Install button on the right<br/>
+After refreshing page click Settings link placed below module title and description<br/>
+put your secret PIN number into visible text field and click Save settings button<br/>
+Type your store address and PIN number in apropriate boxes in our mobile app	<br/>
+	
+
+
+<h3>Configuring Magento</h3>
+
+
+Unzip file magentoplugin.zip<br/>
+Copy files: <br/>
+generate_order_list.php >> /your_main_magento_catalog/<br/>
+pin.ini >> /your_main_magento_catalog/<br/>
+Edit file:<br/>
+.htaccess >> /your_main_magento_catalog/<br/>
+Add:<br/>
+<pre>&lt;Files *.ini&gt;
+Order Deny,Allow
+Deny from all
+&lt;/Files&gt;</pre>
+
+This will prevent remote access to any .ini files, so no one could see your PIN number.
+Type your store address and PIN number in apropriate boxes in our mobile app
+You can change your PIN number by editing pin.ini file.
+
+
+<h3>Configuring osCommerce</h3>
+
+
+Unzip file oscommerceplugin.zip<br>
+Copy files: <br>
+generate_order_list.php >> /your_main_oscommerce_catalog/<br>
+set_plugin_pin.php >> /your_main_oscommerce_catalog/admin/ <br>
+pin.ini >> /your_main_oscommerce_catalog/admin/<br>
+Edit files: orders.php >> /your_main_oscommerce_catalog/admin/ Find section (bottom page):<br>
+<pre>
+&lt;?php
+require(DIR_WS_INCLUDES . 'template_bottom.php');
+require(DIR_WS_INCLUDES . 'application_bottom.php');
+?&gt;
+Insert above require():
+echo '&lt;form action="set_plugin_pin.php" method="post"&gt;
+&lt;input type="submit" value="Set mobile PIN number" /&gt;';
+So section would look like:
+&lt;?php
+echo '&lt;form action="set_plugin_pin.php" method="post"&gt;
+&lt;input type="submit" value="Set mobile PIN number" /&gt;';
+require(DIR_WS_INCLUDES . 'template_bottom.php');
+require(DIR_WS_INCLUDES . 'application_bottom.php');
+?&gt;
+</pre>
+.htaccess >> /your_main_oscommerce_catalog/admin/ Add:<br>
+<pre>
+Order Deny,Allow
+Deny from all
+</pre>
+This will prevent remote access to any .ini files, so no one could see your PIN number. You may also copy modified files from archive, but first check if you have the same version of osCommerce. Editing files method works for all versions.
+Type your store address and PIN number in apropriate boxes in our mobile app<br>
+You can change your PIN number by clicking Set mobile PIN number button in your Admin Panel -> Customers Tab -> Orders.
+
+downloadX Authors
+			
+	</div><!-- content -->
+	
+	<div data-role="footer" data-position="fixed">
+        <div data-role="navbar" data-iconpos="right">
+			<ul>
+				<li><a href="#main" data-icon="home" data-direction="reverse">Main</a></li>
+				<li><a href="#settings" data-icon="gear" data-direction="reverse">Configuration</a></li>
+				<li><a href="#about" data-icon="info" data-theme="b" data-content-theme="b">About</a></li>
+			</ul>
+        </div><!-- navbar -->
+    </div><!-- /footer	-->
+    
+    
+    
+   
+    
 </div> <!-- /page -->
 </body>
 </html>
