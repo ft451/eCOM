@@ -197,7 +197,7 @@ for($i=0;$i<$num_rows;$i++)
 	header(\'Cache-Control: no-cache, must-revalidate\');
 	header(\'Expires: Mon, 26 Jul 1997 05:00:00 GMT\');
 	header(\'Content-type: application/json\');
-	echo $_GET[\'jsoncallback\'] . \'( { "result":'. json_encode($json_data) . '});\'; ?>');
+	echo $_GET[\'jsoncallback\'] . \'( { "result":'. json_encode($json_data, JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_TAG) . '});\'; ?>');
 	fclose($handle);
 
 	print( "$challenge");

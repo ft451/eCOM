@@ -227,9 +227,9 @@ function addOrder(orderId, customerName, customerStAddress, customerCity,
 	openDB();
 	
 	db.transaction(function(tx) {
-		var query="INSERT INTO Orders VALUES (null, '"+orderId+"', '"+customerName+"', '"+customerStAddress+"', '"+
+		var query="INSERT INTO Orders VALUES (null, '"+orderId+"', '"+escape(customerName)+"', '"+escape(customerStAddress)+"', '"+
 		  customerCity+"', '"+customerPostcode+"', '"+customerCountry+"', '"+customerTelephone+"', '"+
-		  customerEmail+"', '"+deliveryAddress+"', '"+deliveryMethod+"', '"+paymentMethod+"', '"+
+		  customerEmail+"', '"+escape(deliveryAddress)+"', '"+escape(deliveryMethod)+"', '"+escape(paymentMethod)+"', '"+
 		  datePurchased+"', '"+orderStatus+"', '"+currency+"', '"+finalPrice+"', '"+additionalInfo+"')";
 
 		tx.executeSql(query);
@@ -244,10 +244,10 @@ function addOrderAllegro(orderId, customerName, customerStAddress, customerCity,
 		openDB();
 		
 		db.transaction(function(tx) {
-		var query="INSERT INTO Orders VALUES (null, '"+orderId+"', '"+customerName+"', '"+customerStAddress+"', '"+
+		var query="INSERT INTO Orders VALUES (null, '"+orderId+"', '"+escape(customerName)+"', '"+escape(customerStAddress)+"', '"+
 		customerCity+"', '"+customerPostcode+"', '"+customerCountry+"', '"+customerTelephone+"', '"+
-		customerEmail+"', '"+deliveryAddress+"', '"+deliveryMethod+"', '"+paymentMethod+"', '"+
-		datePurchased+"', '"+name+"', '"+currency+"', '"+finalPrice+"', '"+additionalInfo+"')";
+		customerEmail+"', '"+escape(deliveryAddress)+"', '"+escape(deliveryMethod)+"', '"+escape(paymentMethod)+"', '"+
+		datePurchased+"', '"+escape(name)+"', '"+currency+"', '"+finalPrice+"', '"+additionalInfo+"')";
 		
 		tx.executeSql(query);
 		},errorCB);
@@ -267,7 +267,7 @@ function addProduct(productOrderId, productName, productPrice, productQuantity) 
 
 	openDB();
 	db.transaction(function(tx) {
-		var query="INSERT INTO Products VALUES (null, '"+productOrderId+"', '"+productName+"', '"+productPrice+"', '"+productQuantity+"')";	
+		var query="INSERT INTO Products VALUES (null, '"+productOrderId+"', '"+escape(productName)+"', '"+productPrice+"', '"+productQuantity+"')";	
 		tx.executeSql(query);
 	},errorCB);
 }
@@ -302,34 +302,6 @@ function showOrders2QueryAllegro(tx) {
 	tx.executeSql(query, [], showOrdersListAllegro, errorCB);
 }
 
-function showOrdersList(tx, result) {
-	var ordersList = $("#orderContentList");
-	
-	var len = result.rows.length;
-	if(len < 1)
-		ordersList.append(
-				'<li>'+
-				'<a href="#order"><h3>There are no new orders</h3>'+
-			    '</a></li>'
-				);
-	$.each(result.rows,function(index){
-		var row = result.rows.item(index);
-		ordersList.append(
-				'<li>'+
-					'<a href="#orderdetails" onClick="loadOrderDetailsList2('+"'"+row['id']+"'"+');">'+
-					'<p>'+row['datePurchased']+'</p>'+
-					'<h3>'+row['customerName']+'</h3>'+
-					'<p><strong>Total: '+roundNumber(row['finalPrice'],2)+' '+row['currency']+'</strong></p>'+
-					'<p>Status: '+row['orderStatus']+'</p>'+	
-				'</a></li>'
-			   );
-	});
-	
-	ordersList.listview( "refresh" );
-	$('#spinner').hide();
-	$('#refresh').show();
-}
-
 function showOrdersListAllegro(tx, result) {
 	var ordersList = $("#orderContentList");
 	
@@ -346,7 +318,7 @@ function showOrdersListAllegro(tx, result) {
 				'<li>'+
 					'<a href="#orderdetails" onClick="loadOrderDetailsListAllegro('+"'"+row['id']+"'"+');">'+
 					'<p>'+row['datePurchased']+'</p>'+
-					'<h3>'+row['customerName']+'</h3>'+
+					'<h3>'+unescape(row['customerName'])+'</h3>'+
 					'<p><strong>Name: '+row['orderStatus']+'</strong></p>'+
 					'<p><strong>Price (with cost of delivery): '+roundNumber(row['finalPrice'],2)+' '+row['currency']+'</strong></p>'+
 				'</a></li>'
@@ -433,7 +405,7 @@ function showOrdersList(tx, result) {
 				'<li>'+
 					'<a href="#orderdetails" onClick="loadOrderDetailsList2('+"'"+row['id']+"'"+');">'+
 					'<p>'+row['datePurchased']+'</p>'+
-					'<h3>'+row['customerName']+'</h3>'+
+					'<h3>'+unescape(row['customerName'])+'</h3>'+
 					'<p><strong>Price: '+roundNumber(row['finalPrice'],2)+' '+row['currency']+'</strong></p>'+
 					'<p>Order status: '+row['orderStatus']+'</p>'+
 				'</a></li>'
@@ -455,8 +427,8 @@ function showDetailList(tx, result) {
     var row = result.rows.item(0);
     customer.append(
                     '<h3>Customer:</h3>'+
-                    '<p>Name: '+row['customerName']+'</p>'+
-                    '<p>Address: '+row['customerStAddress']+'</p>'+
+                    '<p>Name: '+unescape(row['customerName'])+'</p>'+
+                    '<p>Address: '+unescape(row['customerStAddress'])+'</p>'+
                     '<p>City: '+row['customerCity']+'</p>'+
                     '<p>Postcode: '+row['customerPostcode']+'</p>'+
                     '<p>Country: '+row['customerCountry']+'</p>'+
@@ -468,8 +440,8 @@ function showDetailList(tx, result) {
             '<h3>Order details:</h3>'+
             '<p>Date purchased: '+row['datePurchased']+'</p>'+
             '<p>Order status: '+row['orderStatus']+'</p>'+
-            '<p>Delivery address: '+row['deliveryAddress']+'</p>'+
-            '<p>Delivery method: '+row['deliveryMethod']+'</p>'+
+            '<p>Delivery address: '+unescape(row['deliveryAddress'])+'</p>'+
+            '<p>Delivery method: '+unescape(row['deliveryMethod'])+'</p>'+
             '<p>Final price: '+roundNumber(row['finalPrice'],2)+' '+row['currency']+'</p>'
             
     );
@@ -480,7 +452,7 @@ function showDetailList(tx, result) {
             row = result.rows.item(index);
             productList.append(
                             '<li>'+
-                                    '<h3>'+row['productName']+'</h3>'+
+                                    '<h3>'+unescape(row['productName'])+'</h3>'+
                                     '<p><strong>Price: '+roundNumber(row['productPrice'],2)+' '+row['currency']+'</strong></p>'+
                                     '<p>Quantity: '+roundNumber(row['productQuantity'],0)+'</p>'+
                             '</li>'
@@ -503,8 +475,8 @@ function showDetailListAllegro(tx, result) {
 	
 	customer.append(
             '<h3>Customer:</h3>'+
-            '<p>Name: '+row['customerName']+'</p>'+
-            '<p>Address: '+row['customerStAddress']+'</p>'+
+            '<p>Name: '+unescape(row['customerName'])+'</p>'+
+            '<p>Address: '+unescape(row['customerStAddress'])+'</p>'+
             '<p>City: '+row['customerCity']+'</p>'+
             '<p>Postcode: '+row['customerPostcode']+'</p>'+
             '<p>Country: '+row['customerCountry']+'</p>'+
@@ -516,8 +488,8 @@ function showDetailListAllegro(tx, result) {
 	    '<h3>Order details:</h3>'+
 		'<p>Auction ID: '+row['orderId']+'</p>'+
 	    '<p>Date purchased: '+row['datePurchased']+'</p>'+
-	    '<p>Delivery address: '+row['deliveryAddress']+'</p>'+
-	    '<p>Delivery method: '+row['deliveryMethod']+'</p>'+
+	    '<p>Delivery address: '+unescape(row['deliveryAddress'])+'</p>'+
+	    '<p>Delivery method: '+unescape(row['deliveryMethod'])+'</p>'+
 	    '<p>Final price: '+roundNumber(row['finalPrice'],2)+' '+row['currency']+'</p>'
 	    
 	);
@@ -528,7 +500,7 @@ function showDetailListAllegro(tx, result) {
 		row = result.rows.item(index);
 		productList.append(
 				'<li>'+
-					'<h3>Product name: '+row['productName']+'</h3>'+
+					'<h3>Product name: '+unescape(row['productName'])+'</h3>'+
 					'<p><strong>Product price: '+roundNumber(row['productPrice'],2)+' '+row['currency']+'</strong></p>'+
 					'<p><strong>Quantity: '+roundNumber(row['productQuantity'],0)+'</strong></p>'+
 				'</li>'
