@@ -6,7 +6,7 @@ class WebAPISoapClient extends SoapClient
 	
     const QUERY_ALLEGROWEBAPI = 1;
     
-    const API_KEY = ''; //klucz Allegro WebAPI
+    const API_KEY = '43229e1d3e'
 
     public function __construct()
     {
@@ -77,7 +77,7 @@ class WebAPISoapClient extends SoapClient
 		
 		foreach($customers as $customer)
 		{
-			// jako klucz obieramy ID aukcji i przypisujemy mu listê klientów
+			// jako klucz obieramy ID aukcji i przypisujemy mu listï¿½ klientï¿½w
 			$data[ $customer->{'item-id'} - PHP_INT_MAX] = $customer->{'users-post-buy-data'};
 		}
 		
@@ -118,19 +118,19 @@ class WebAPISoapClient extends SoapClient
 				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'n') $pay_type = 'MultiTransfer - MultiBank';
 				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'w') $pay_type = 'BZWBK - Przelew24';
 				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'o') $pay_type = 'Pekao24Przelew - Bank Pekao';
-				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'i') $pay_type = 'P³acê z Inteligo';
-				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'd') $pay_type = 'P³aæ z Nordea';
-				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'p') $pay_type = 'P³aæ z iPKO';
-				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'h') $pay_type = 'P³aæ z BPH';
-				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'g') $pay_type = 'P³aæ z ING ';
+				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'i') $pay_type = 'Pï¿½acï¿½ z Inteligo';
+				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'd') $pay_type = 'Pï¿½aï¿½ z Nordea';
+				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'p') $pay_type = 'Pï¿½aï¿½ z iPKO';
+				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'h') $pay_type = 'Pï¿½aï¿½ z BPH';
+				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'g') $pay_type = 'Pï¿½aï¿½ z ING ';
 				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'l') $pay_type = 'LUKAS e-przelew';
 				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'u') $pay_type = 'Eurobank';
 				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'me') $pay_type = 'Meritum Bank';
-				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'ab') $pay_type = 'P³acê z Alior Bankiem';
+				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'ab') $pay_type = 'Pï¿½acï¿½ z Alior Bankiem';
 				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'wp') $pay_type = 'Przelew z Polbank';
 				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'wm') $pay_type = 'Przelew z Millennium';
 				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'wk') $pay_type = 'Przelew z Kredyt Bank';
-				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'wg') $pay_type = 'Przelew z BG¯ ';
+				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'wg') $pay_type = 'Przelew z BGï¿½ ';
 				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'wd') $pay_type = 'Przelew z Deutsche Bank';
 				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'wr') $pay_type = 'Przelew z Raiffeisen Bank';
 				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'wc') $pay_type = 'Przelew z Citibank';
@@ -139,9 +139,9 @@ class WebAPISoapClient extends SoapClient
 				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'wy') $pay_type = 'Przelew z Bankiem Pocztowym';
 				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'c') $pay_type = 'Karta kredytowa';
 				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'b') $pay_type = 'Przelew bankowy';
-				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 't') $pay_type = 'P³atnoœæ testowa';
-				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'collect_on_delivery') $pay_type = 'P³acê przy odbiorze';
-				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'wire_transfer') $pay_type = 'Zwyk³y przelew - poza systemem P³acê z Allegro';
+				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 't') $pay_type = 'Pï¿½atnoï¿½ï¿½ testowa';
+				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'collect_on_delivery') $pay_type = 'Pï¿½acï¿½ przy odbiorze';
+				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'wire_transfer') $pay_type = 'Zwykï¿½y przelew - poza systemem Pï¿½acï¿½ z Allegro';
 				if($dataForSellers[$counter]->{'post-buy-form-pay-type'} == 'not_specified') $pay_type = '0';
 				
 				$order['sent_to_data_pay_type'] = $pay_type;
